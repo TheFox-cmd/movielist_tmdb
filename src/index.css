@@ -1,0 +1,10 @@
+:root {
+  --rating-icon-color: #f5c518;
+  --secondary-color: #01b4e4;
+  font: 16px/1.5 'Roboto', sans-serif;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}

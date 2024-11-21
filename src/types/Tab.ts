@@ -1,0 +1,1 @@
+export type Tab = "Home" | "Liked" | "Rated" | "Login";
