@@ -1,15 +1,17 @@
 import axios from "axios";
 import { UserData, RequestToken, SessionToken, AccountData } from "../types/LoginForm";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { LoginContext } from "../context/LoginContext";
 
 const useLogin = () => {
   const { setUserData } = useContext(LoginContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const login: (
     username: string,
     password: string
   ) => Promise<UserData> = async (username, password) => {
+    setIsLoading(true);
     const user = localStorage.getItem("userData")
     if (user) return new Promise((resolve) => resolve(JSON.parse(user))); 
 
@@ -71,11 +73,11 @@ const useLogin = () => {
 
     localStorage.setItem("userData", JSON.stringify(userData));
     setUserData(userData);
-
+    setIsLoading(false);
     return userData;
   };
 
-  return { login };
+  return { login, isLoading };
 };
 
 export default useLogin;

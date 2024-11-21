@@ -2,7 +2,7 @@ import { LoginForm } from "../types/LoginForm";
 import { Form, ErrorMessage, Field, Formik } from "formik";
 import FormValidation from "../schema/FormValidation";
 import TextField from "@mui/material/Textfield";
-import Button from "@mui/material/Button";
+import LoadingButton from '@mui/lab/LoadingButton';
 import Box from "@mui/material/Box";
 import useLogin from "../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +10,9 @@ import { useState } from "react";
 
 const Login = () => {
   const [loginFailed, setLoginFailed] = useState(false);
-  const { login } = useLogin();
+  const { login, isLoading } = useLogin();
   const navigate = useNavigate();
+  console.log(isLoading);
 
   const initialForm: LoginForm = {
     username: "",
@@ -89,13 +90,14 @@ const Login = () => {
               error={touched.password && errors.password !== undefined}
               helperText={<ErrorMessage name="password" />}
             />
-            <Button
+            <LoadingButton
+              loading={isLoading}
               type="submit"
-              variant="contained"
+              variant="outlined"
               disabled={isSubmitting}
               sx={{
                 width: "100%",
-                backgroundColor: "#3f51b5",
+                backgroundColor: `${isLoading ? "lightgray" : "#3f51b5"}`,
                 color: "white",
                 padding: "6px 16px",
                 fontWeight: "500",
@@ -103,7 +105,7 @@ const Login = () => {
               }}
             >
               SUBMIT
-            </Button>
+            </LoadingButton>
           </Box>
         </Form>
       )}
